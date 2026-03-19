@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { PokemonProps } from "../types";
 import SearchBar from "../components/search-bar";
+import PokemonCard from "../components/pokemon-card";
 
 function PokedexPage() {
   const [currentPokemon, setCurrentPokemon] = useState<PokemonProps | null>(
@@ -31,7 +32,7 @@ function PokedexPage() {
       <SearchBar onFetch={fetchPokemon} />
       {isLoadingPokemon && <p>Cargando pokemon...</p>}
       {error && <p>{error}</p>}
-      {currentPokemon && <p>{currentPokemon.name}</p>}
+      {currentPokemon && <PokemonCard currentPokemon={currentPokemon} />}
     </div>
   );
 }

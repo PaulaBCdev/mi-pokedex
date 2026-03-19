@@ -22,4 +22,7 @@ export interface PokemonProps {
   height: number;
   abilities: PokeAbilitiesProps[];
   types: PokeTypeProps[];
+  sprites: {
+    front_default: string;
+  };
 }
