@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { PokemonProps } from "../types";
 import SearchBar from "../components/search-bar";
 import PokemonCard from "../components/pokemon-card";
+import PokemonList from "../components/pokemon-list";
 
 function PokedexPage() {
   const [currentPokemon, setCurrentPokemon] = useState<PokemonProps | null>(
@@ -11,29 +12,41 @@ function PokedexPage() {
   const [error, setError] = useState<string>("");
 
   const fetchPokemon = async (pokemonName: string) => {
-    try {
-      setIsLoadingPokemon(true);
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-      );
-      const pokemonInfo = await response.json();
+    const nameLowCase = pokemonName.toLowerCase();
+    if (nameLowCase !== currentPokemon?.name) {
+      try {
+        setIsLoadingPokemon(true);
+        setCurrentPokemon(null);
+        setError("");
 
-      setCurrentPokemon(pokemonInfo);
-    } catch (error) {
-      setError("Pokemon no registrado");
-      console.log(error);
-    } finally {
-      setIsLoadingPokemon(false);
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
+        );
+        const pokemonInfo = await response.json();
+
+        setCurrentPokemon(pokemonInfo);
+      } catch (error) {
+        setCurrentPokemon(null);
+        setError("Pokemon no registrado");
+        console.log(error);
+      } finally {
+        setIsLoadingPokemon(false);
+      }
     }
   };
 
   return (
-    <div>
+    <>
       <SearchBar onFetch={fetchPokemon} />
-      {isLoadingPokemon && <p>Cargando pokemon...</p>}
-      {error && <p>{error}</p>}
-      {currentPokemon && <PokemonCard currentPokemon={currentPokemon} />}
-    </div>
+      <div>
+        {isLoadingPokemon && <p>Cargando pokemon...</p>}
+        {error && <p>{error}</p>}
+        {currentPokemon && <PokemonCard currentPokemon={currentPokemon} />}
+      </div>
+      <div>
+        <PokemonList />
+      </div>
+    </>
   );
 }
 

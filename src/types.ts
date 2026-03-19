@@ -26,3 +26,8 @@ export interface PokemonProps {
     front_default: string;
   };
 }
+
+export interface PokemonListProps {
+  id: number;
+  name: string;
+}

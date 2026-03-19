@@ -12,10 +12,7 @@ function PokemonCard({ currentPokemon }: PokemonCardProps) {
   const abilities = currentPokemon?.abilities;
   const types = currentPokemon?.types;
 
-  const capitalizeName = (name: string) =>
-    name[0].toUpperCase() + name.slice(1);
-
-  const name = currentPokemon ? capitalizeName(currentPokemon.name) : "";
+  const name = currentPokemon?.name || "";
 
   return (
     <div>
