@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useState } from "react";
 import type { PokemonProps } from "../types";
 
 interface PokemonListProps {

@@ -30,7 +30,7 @@ function PokemonCard({ currentPokemon }: PokemonCardProps) {
       </ul>
       <ul>
         {types?.map((type) => (
-          <li>{type.type.name}</li>
+          <li key={type.slot}>{type.type.name}</li>
         ))}
       </ul>
     </div>
