@@ -44,7 +44,7 @@ function PokedexPage() {
         {currentPokemon && <PokemonCard currentPokemon={currentPokemon} />}
       </div>
       <div>
-        <PokemonList />
+        <PokemonList onSelected={fetchPokemon} />
       </div>
     </>
   );

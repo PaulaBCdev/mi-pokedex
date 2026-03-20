@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import type { PokemonProps } from "../types";
 
-function PokemonList() {
+interface PokemonListProps {
+  onSelected?: (pokeName: string) => void;
+}
+
+function PokemonList({ onSelected }: PokemonListProps) {
   const [pokeNameList, setPokeNameList] = useState<PokemonProps[]>([]);
   const [url, setUrl] = useState<string>(
     "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0",
@@ -37,7 +41,13 @@ function PokemonList() {
     <div>
       <ul>
         {pokeNameList.map((pokemon, index) => (
-          <li>{`${index + 1}. ${pokemon.name}`}</li>
+          <li
+            key={index}
+            value={pokemon.name}
+            onClick={() => {
+              onSelected?.(pokemon.name);
+            }}
+          >{`${index + 1}. ${pokemon.name}`}</li>
         ))}
       </ul>
       <button type="button" onClick={handleMorePokemon}>
